@@ -1,12 +1,12 @@
 ---
-name: "Update build base version" 
+name: "Update build base version"
 
 sources:
   gomod:
     name: Get latest Golang version based on go.mod
     kind: file
     spec:
-      file: https://raw.githubusercontent.com/v1.12.2/go.mod
+      file: https://raw.githubusercontent.com/coredns/coredns/v1.12.2/go.mod
       matchpattern: 'go ([0-9]+\.[0-9]+)'
     transformers:
       - trimprefix: "go "
@@ -53,7 +53,7 @@ scms:
       owner: '{{ .github.owner }}'
       repository: '{{ .github.repository }}'
       branch: '{{ .github.branch }}'
-      
+
 actions:
     default:
         title: 'Bump build base version to {{ source "buildbase" }}'
@@ -65,4 +65,3 @@ actions:
                 - skip-changelog
                 - status/auto-created
         scmid: default
-

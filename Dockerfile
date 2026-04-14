@@ -18,11 +18,12 @@ RUN set -x && \
 FROM --platform=$BUILDPLATFORM base-builder AS coredns-builder
 ARG SRC=github.com/coredns/coredns
 ARG PKG=github.com/coredns/coredns
-ARG TAG=v1.14.2
+ARG TAG=v1.14.3
+ARG COMMIT=529320db4bbd63b61af56d7198b7c775ae874259
 RUN git clone --depth=1 https://${SRC}.git $GOPATH/src/${PKG}
 WORKDIR $GOPATH/src/${PKG}
 RUN git fetch --all --tags --prune
-RUN git checkout tags/${TAG} -b ${TAG}
+RUN git fetch origin $COMMIT && git checkout $COMMIT
 RUN go mod download
 # cross-compilation setup
 ARG TARGETPLATFORM TARGETARCH
